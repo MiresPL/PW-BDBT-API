@@ -6,25 +6,19 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-menu">
                     <li class="navbar-item active">
-                        <a class="nav-link" th:href="@{/}">Home</a>
+                        <a class="nav-link" th:href="@{/}">Strona Główna</a>
                     </li>
                     <li class="navbar-item">
-                        <a class="nav-link" th:href="@{Attractions}">Attractions</a>
+                        <a class="nav-link" th:href="@{../atrakcje}">Atrakcje</a>
                     </li>
                     <li class="navbar-item">
-                        <a class="nav-link" th:href="@{/Events}">Events</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" th:href="@{/Contact}">Contact</a>
+                        <a class="nav-link" th:href="@{/bilety}">Bilety</a>
                     </li>
                 </ul>
                 <div class="navbar-user-option-box">
-                    <a href="">
+                    <a class="nav-link" th:href="@{/login}">
                             <i class="fa fa-user"></i>
                         </a>
-                    <a href="">
-                        <i class="fa fa-shopping-cart"></i>
-                    </a>
                 </div>
             </div>
         </nav>

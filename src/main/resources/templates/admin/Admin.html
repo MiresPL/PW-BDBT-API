@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administracyjny</title>
+</head>
+<body>
+Dodaj atrakcję do bazy danych
+<form action="/admin/addAttraction" method="post">
+    <label for="name">Nazwa atrakcji:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="description">Opis atrakcji:</label><br>
+    <input type="text" id="description" name="description"><br>
+    <label for="price">Cena biletu:</label><br>
+    <input type="text" id="price" name="price"><br>
+    <input type="submit" value="Dodaj">
+</form>
+
+Usuń atrakcję z bazy danych
+<form action="/admin/deleteAttraction" method="post">
+    <label for="name">Nazwa atrakcji:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <input type="submit" value="Usuń">
+</form>
+
+Lista pracowników i przypisane im atrakcje (tabelka z dropdownem atrakcji)
+<form action="/admin/assignAttraction" method="post">
+    <label for="employee">Pracownik:</label><br>
+    <select id="employee" name="employee">
+        <option value="1">Jan Kowalski</option>
+        <option value="2">Anna Nowak</option>
+        <option value="3">Piotr Wiśniewski</option>
+    </select><br>
+    <label for="attraction">Atrakcja:</label><br>
+    <select id="attraction" name="attraction">
+        <option value="1">Wodny Świat</option>
+        <option value="2">Kolejka Górska</option>
+        <option value="3">Karuzela</option>
+    </select><br>
+    <input type="submit" value="Przypisz">
+</form>
+
+</body>
+</html>

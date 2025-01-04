@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kup Bilet</title>
+</head>
+<body>
+//formularz z rodzajem biletu cena i data waznosci
+<form action="/tickets/buyTicket" method="post">
+    <label for="type">Rodzaj biletu:</label><br>
+    <select id="type" name="type">
+        <option value="1">Normalny</option>
+        <option value="2">Ulgowy</option>
+        <option value="3">Studencki</option>
+        <option value="4">Senior</option>
+        <option value="5">Dziecko do lat 5</option>
+        <option value="6">KDR</option>
+
+    </select><br>
+    <label for="price">Cena biletu:</label><br>
+    <input type="text" id="price" name="price"><br>
+    <label for="validTo">Data ważności:</label><br>
+    <input type="date" id="validTo" name="validTo"><br>
+    <input type="submit" value="Kup">
+
+</form>
+
+
+
+</body>
+</html>

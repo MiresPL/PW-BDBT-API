@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
+    <title>Park Rozrywki</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" th:href="@{/css/global/global.css}">
@@ -15,11 +16,47 @@
 <body>
 <div class="main-container-fluid">
     <div th:replace="common/Header :: headerFragment">Some Content</div>
-    <section class="main-content">
-        <div id="customCarousel" class="carousel slide" data-ride="carousel">
-            <img th:src="@{/images/home-carousel-1.jpg}" class="" alt="...">
+
+    <div class="home-container">
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img th:src="@{/images/img1.png}" class="" alt="..." >
+            </div>
+            <div class="mySlides fade">
+                <img th:src="@{/images/img2.png}" class="" alt="..." >
+            </div>
+            <div class="mySlides fade">
+                <img th:src="@{/images/img3.png}" class="" alt="..." >
+            </div>
+            <div class="mySlides fade">
+                <img th:src="@{/images/img4.png}" class="" alt="..." >
+            </div>
+            <script>
+                let slideIndex = 0;
+                showSlides();
+
+                function showSlides() {
+                    let i;
+                    let slides = document.getElementsByClassName("mySlides");
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    slideIndex++;
+                    if (slideIndex > slides.length) {slideIndex = 1}
+                    slides[slideIndex-1].style.display = "block";
+                    setTimeout(showSlides, 8000);
+                }
+            </script>
         </div>
-    </section>
+    <div class="text-container">
+        <p>Największy park rozrywki po tej stronie drogi mlecznej!</p>
+        <p>blah blah blah blah rucham ci starą</p>
+        <button class="btn">Kup Bilet</button>
+    </div>
+    </div>
+
+
+
 </div>
 <!--<script th:src="@{/js/script.js}"></script>-->
 </body>
