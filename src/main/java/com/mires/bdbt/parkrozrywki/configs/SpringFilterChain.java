@@ -10,17 +10,18 @@ public class SpringFilterChain {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
+        http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
+                        .defaultSuccessUrl("/index")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/index")
+                        .logoutSuccessUrl("/index")
                         .permitAll());
 
         return http.build();

@@ -13,6 +13,7 @@ public class TestController {
     @GetMapping("")
     public String home(final Model model) {
         model.addAttribute("message", "Hello World!");
+
         return "home/Home";
     }
     

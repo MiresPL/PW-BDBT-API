@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(
 		scanBasePackages = {
-				"com.mires.bdbt.parkrozrywki",
-				"com.mires.bdbt.common"
+				"com.mires.bdbt.parkrozrywki"
 		}
 )
 public class ParkRozrywkiApplication {
