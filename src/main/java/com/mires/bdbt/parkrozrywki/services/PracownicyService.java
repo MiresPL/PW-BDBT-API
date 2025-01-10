@@ -16,7 +16,19 @@ public class PracownicyService {
         this.pracownicyRepository = pracownicyRepository;
     }
 
+    public Pracownik findById(final Long id) {
+        return pracownicyRepository.findById(id).orElse(null);
+    }
+
     public List<Pracownik> getAllPracownicy() {
         return pracownicyRepository.getAllPracownikInfo();
+    }
+
+    public void save(final Pracownik pracownik) {
+        this.pracownicyRepository.save(pracownik);
+    }
+
+    public void remove(final Long id) {
+        this.pracownicyRepository.deleteById(id);
     }
 }

@@ -15,6 +15,12 @@ public class Klient {
     @Column(name = "NR_KLIENTA")
     private Long nrKlienta;
 
+    @Column(name = "LOGIN", length = 20)
+    private String login;
+
+    @Column(name = "HASLO", length = 20)
+    private String haslo;
+
     @Column(name = "IMIE", length = 20)
     private String imie;
 
