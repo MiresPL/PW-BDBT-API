@@ -2,12 +2,12 @@ package com.mires.bdbt.parkrozrywki.controllers;
 
 import com.mires.bdbt.parkrozrywki.entities.Pracownik;
 import com.mires.bdbt.parkrozrywki.services.PracownicyService;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/pracownicy")
 public class PracownicyController {
     private final PracownicyService pracownicyService;
@@ -17,9 +17,9 @@ public class PracownicyController {
     }
 
     @GetMapping
-    public List<Pracownik> getAllPracownicy(final Model model) {
+    public String getAllPracownicy(final Model model) {
         model.addAttribute("pracownicy", pracownicyService.getAllPracownicy());
-        return pracownicyService.getAllPracownicy();
+        return "pracownik/pracownicy";
     }
 
     @GetMapping("/update/{id}")

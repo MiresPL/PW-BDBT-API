@@ -4,14 +4,14 @@ import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
-@RestController
+@Controller
 @RequestMapping("/klient")
 public class KlientController {
     private final KlientService klientService;

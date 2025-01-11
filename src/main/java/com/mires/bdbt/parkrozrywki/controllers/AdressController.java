@@ -1,15 +1,14 @@
 package com.mires.bdbt.parkrozrywki.controllers;
 
 import com.mires.bdbt.parkrozrywki.entities.Adres;
-import com.mires.bdbt.parkrozrywki.entities.Pracownik;
 import com.mires.bdbt.parkrozrywki.services.AdressService;
-import com.mires.bdbt.parkrozrywki.services.PracownicyService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/adress")
 public class AdressController {
     private final AdressService adressService;
