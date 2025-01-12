@@ -4,10 +4,13 @@ import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
+import oracle.sql.DATE;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -40,9 +43,9 @@ public class KlientController {
         BiletyKlienci biletyKlienci = new BiletyKlienci();
         biletyKlienci.setNrKlienta(idKlienta);
         biletyKlienci.setNrBiletu(idBiletu);
-        final LocalDate dataZakupu = LocalDate.now();
+        final Date dataZakupu = new Date(System.currentTimeMillis());
         biletyKlienci.setDataZakupu(dataZakupu);
-        biletyKlienci.setDataWaznosci(dataZakupu.plusDays(10));
+        biletyKlienci.setDataWaznosci(new Date(dataZakupu.getTime() + 1000 * 60 * 60 * 24 * 10));
         biletyKlienciService.save(biletyKlienci);
         return "redirect:/";
     }

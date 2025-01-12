@@ -28,7 +28,7 @@ public class Atrakcja {
     @Column(name = "NR_PARKU")
     private Long nrParku;
 
-    @Column(name = "ZDJECIE", length = 100)
+    @Column(name = "ZDJECIE", length = 1000)
     private String zdjecie;
 }
 

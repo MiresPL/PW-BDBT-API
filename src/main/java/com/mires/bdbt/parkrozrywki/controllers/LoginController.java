@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/klient/login")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoginController {
     private final KlientService klientService;
 
@@ -19,10 +19,17 @@ public class LoginController {
         this.klientService = klientService;
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
 
+    @PostMapping(path = "", produces = "application/json", consumes = "application/json")
+    public String login(@RequestBody Map<String, String> credentials) {
+        String login = credentials.get("login");
+        String password = credentials.get("password");
 
-    @PostMapping
-    public String login(@RequestParam String login, @RequestParam String password) {
+        System.out.println(1);
         final Klient klient = klientService.login(login, password);
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", klient != null);

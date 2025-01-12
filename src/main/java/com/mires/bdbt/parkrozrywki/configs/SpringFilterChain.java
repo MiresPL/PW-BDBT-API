@@ -3,6 +3,7 @@ package com.mires.bdbt.parkrozrywki.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,6 +26,7 @@ public class SpringFilterChain {
                         .logoutUrl("/index")
                         .logoutSuccessUrl("/index")
                         .permitAll());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

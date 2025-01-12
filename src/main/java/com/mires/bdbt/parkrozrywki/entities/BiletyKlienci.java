@@ -3,7 +3,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "BILETY_KLIENCI")
@@ -21,8 +22,8 @@ public class BiletyKlienci {
     private Long nrKlienta;
 
     @Column(name = "DATA_ZAKUPU")
-    private LocalDate dataZakupu;
+    private Date dataZakupu;
 
     @Column(name = "DATA_WAZNOSCI")
-    private LocalDate dataWaznosci;
+    private Date dataWaznosci;
 }
