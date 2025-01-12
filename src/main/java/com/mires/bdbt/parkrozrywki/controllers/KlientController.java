@@ -23,8 +23,13 @@ public class KlientController {
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestParam String login, @RequestParam String haslo) {
-        return klientService.login(login, haslo);
+    public String login(@RequestParam String login, @RequestParam String haslo) {
+        if (klientService.login(login, haslo)) {
+            return "redirect:/";
+        }
+        else {
+            return "login/login";
+        }
     }
 
     @GetMapping("/update/{id}")

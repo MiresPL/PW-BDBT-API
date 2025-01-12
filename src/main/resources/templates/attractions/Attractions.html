@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/global/global.css}">
     <link rel="stylesheet" th:href="@{/css/common/header.css}">
     <link rel="stylesheet" th:href="@{/css/home/home.css}">
+    <link rel="stylesheet" th:href="@{/css/attractions/attractions.css}">
     <link rel="stylesheet" th:href="@{/css/fonts/font-awesome.min.css}">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans+Text_old:400&text=%E2%86%90%E2%86%92%E2%86%91%E2%86%93&lang=pl">
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans_old:400,500,700|Google+Sans+Text_old:400,500,700&lang=pl">
@@ -16,18 +17,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-stary leży najebany na wersalce
-stara trze ser sobie tu na tarce
-twoj stary kreci sie jak beben w pralce
-rozjezdam se kurwy
-wszystkie plaskie jakbym jechal sobie walcem
-wjebalem sie tutaj tancem
-twoj stary jest obsrancem
-robie zygzak po zarzyganej kurwa klatce
-potem ujebane palce
-caly plan napisalem sobie tu na kartce
-twoja stara niesie pierogi se w siatce
-elo elo 320
-kurwy fakery tym co sie tutaj smieja
+<div th:replace="common/Header :: headerFragment">Some Content</div>
+<h1>Nasze Atrakcje</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Zdjecie</th>
+        <th>Nazwa</th>
+        <th>Minimalny wiek</th>
+        <th>Minimalny wzrost</th>
+        <th>Liczba osob</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="atrakcja : ${atrakcjeList}">
+        <td><img th:src="${atrakcja.zdjecie}" alt="Attraction Photo"></td>
+        <td th:text="${atrakcja.nazwaAtrakcji}"></td>
+        <td th:text="${atrakcja.minWiek} + lat"></td>
+        <td th:text="${atrakcja.minWzrost} + cm"></td>
+        <td th:text="${atrakcja.maxLiczbaOsob}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/login/login.css}">
+    <link rel="stylesheet" th:href="@{/css/global/global.css}">
 </head>
 <body>
 Zaloguj się
 <form action="/login" method="post">
-    <label for="username">Nazwa użytkownika:</label><br>
-    <input type="text" id="username" name="username"><br>
-    <label for="password">Hasło:</label><br>
-    <input type="password" id="password" name="password"><br><br>
+    <div th:if="${param.error}">
+        Niepoprawne dane logowania
+    </div>
+    <div>
+        <label for="login">Nazwa użytkownika:</label><br>
+        <input type="text" id="login" name="login"><br>
+    </div>
+    <div>
+        <label for="haslo">Hasło:</label><br>
+        <input type="password" id="haslo" name="haslo"><br><br>
+    </div>
     <input type="submit" value="Zaloguj">
 </form>
 </body>
