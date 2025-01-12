@@ -19,9 +19,10 @@ public class KlientService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public boolean login(String login, String haslo) {
+    public Klient login(final String login, final String password) {
         Klient klient = klientRepository.findByLogin(login);
-        return klient != null && passwordEncoder.matches(haslo, klient.getHaslo());
+        if (klient != null && passwordEncoder.matches(password, klient.getHaslo())) return klient;
+        return null;
     }
 
     public List<Klient> findAll() {

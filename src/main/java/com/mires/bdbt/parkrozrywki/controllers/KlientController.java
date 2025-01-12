@@ -22,11 +22,6 @@ public class KlientController {
         this.biletyKlienciService = biletyKlienciService;
     }
 
-    @PostMapping("/login")
-    public boolean login(@RequestParam String login, @RequestParam String haslo) {
-        return klientService.login(login, haslo);
-    }
-
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable Long id, Model model) {
         Klient klient = klientService.findById(id);
