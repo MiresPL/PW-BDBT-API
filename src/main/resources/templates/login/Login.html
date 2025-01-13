@@ -8,17 +8,17 @@
 </head>
 <body>
 Zaloguj się
-<form action="/login" method="post">
+<form action="#" th:action="@{/klient/loginRequest}" th:object="${loginCredentials}" method="post">
     <div th:if="${param.error}">
         Niepoprawne dane logowania
     </div>
     <div>
         <label for="login">Nazwa użytkownika:</label><br>
-        <input type="text" id="login" name="login"><br>
+        <input type="text" id="login" th:field="*{login}"><br>
     </div>
     <div>
         <label for="haslo">Hasło:</label><br>
-        <input type="password" id="haslo" name="haslo"><br><br>
+        <input type="password" id="haslo" th:field="*{password}"><br><br>
     </div>
     <input type="submit" value="Zaloguj">
 </form>

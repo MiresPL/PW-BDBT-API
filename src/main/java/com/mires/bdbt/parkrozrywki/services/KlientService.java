@@ -21,7 +21,6 @@ public class KlientService {
 
     public Klient login(final String login, final String password) {
         Klient klient = klientRepository.findByLogin(login);
-        System.out.println(passwordEncoder.encode(klient.getHaslo()));
         if (klient != null && passwordEncoder.matches(password, klient.getHaslo())) return klient;
         return null;
     }
@@ -35,7 +34,6 @@ public class KlientService {
     }
 
     public void save(Klient klient) {
-        klient.setHaslo(passwordEncoder.encode(klient.getHaslo()));
         klientRepository.save(klient);
     }
 

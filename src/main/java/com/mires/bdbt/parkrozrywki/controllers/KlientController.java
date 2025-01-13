@@ -1,17 +1,23 @@
 package com.mires.bdbt.parkrozrywki.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
+import com.mires.bdbt.parkrozrywki.entities.LoginCredentials;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
 import oracle.sql.DATE;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Map;
 
 
 @Controller
@@ -23,6 +29,26 @@ public class KlientController {
     public KlientController(KlientService klientService, BiletyKlienciService biletyKlienciService) {
         this.klientService = klientService;
         this.biletyKlienciService = biletyKlienciService;
+    }
+
+    @PostMapping(path = "/loginRequest")
+    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final RedirectAttributes redirectAttributes) {
+        final Klient klient = klientService.login(loginCredentials.getLogin(),  loginCredentials.getPassword());
+
+        if (klient != null) {
+            redirectAttributes.addFlashAttribute("klient", klient);
+            return "redirect:/";
+        } else {
+
+            return "redirect:/klient/login";
+        }
+
+    }
+
+    @GetMapping("/login")
+    public String login(final Model model) {
+        model.addAttribute("loginCredentials", new LoginCredentials());
+        return "login/Login";
     }
 
     @GetMapping("/update/{id}")
