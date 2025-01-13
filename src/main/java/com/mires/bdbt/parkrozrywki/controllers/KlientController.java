@@ -5,7 +5,9 @@ import com.mires.bdbt.parkrozrywki.entities.Klient;
 import com.mires.bdbt.parkrozrywki.entities.LoginCredentials;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +45,9 @@ public class KlientController {
     }
 
     @GetMapping("/login")
-    public String login(final Model model) {
+    public String login(final Model model, HttpServletRequest request) {
         model.addAttribute("loginCredentials", new LoginCredentials());
+        model.addAttribute("request", request);
         return "login/Login";
     }
 

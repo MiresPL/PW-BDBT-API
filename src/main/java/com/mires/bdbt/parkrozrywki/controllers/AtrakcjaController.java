@@ -2,6 +2,7 @@ package com.mires.bdbt.parkrozrywki.controllers;
 
 import com.mires.bdbt.parkrozrywki.entities.Atrakcja;
 import com.mires.bdbt.parkrozrywki.services.AtrakcjaService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,13 @@ public class AtrakcjaController {
     }
 
     @GetMapping
-    public String listAtrakcje(Model model) {
+    public String listAtrakcje(Model model, HttpServletRequest request) {
         List<Atrakcja> atrakcjeList = atrakcjaService.findAll();
         for (Atrakcja atrakcja : atrakcjeList) {
             System.out.println("Atrakcja: " + atrakcja.getNazwaAtrakcji() + ", Zdjecie: " + atrakcja.getZdjecie());
         }
         model.addAttribute("atrakcjeList", atrakcjeList);
+        model.addAttribute("request", request);
         return "attractions/attractions";
     }
 }

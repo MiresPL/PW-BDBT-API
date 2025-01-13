@@ -6,24 +6,24 @@
             <a class="navbar-brandName" th:if="${session.klient == null}">Nazwa Parku</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-menu">
-                    <li class="navbar-item active">
+                    <li class="navbar-item" th:classappend="${request.requestURI == '/' ? 'active' : ''}">
                         <a class="nav-link" th:href="@{/}">Strona Główna</a>
                     </li>
-                    <li class="navbar-item">
+                    <li class="navbar-item" th:classappend="${request.requestURI.contains('/atrakcje') ? 'active' : ''}">
                         <a class="nav-link" th:href="@{../atrakcje}">Atrakcje</a>
                     </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" th:href="@{/bilety}">Bilety</a>
+                    <li class="navbar-item" th:classappend="${request.requestURI.contains('/bilety') ? 'active' : ''}">
+                        <a class="nav-link" th:if="${session.klient == null }" th:href="@{/klient/login}">Bilety</a>
+                        <a class="nav-link" th:if="${session.klient != null }" th:href="@{/bilety}">Bilety</a>
                     </li>
                 </ul>
                 <div class="navbar-user-option-box">
                     <a class="nav-link" th:if="${session.klient == null}" th:href="@{/klient/login}">
-                            <i class="fa fa-user"></i>
-                        </a>
+                        <i class="fa fa-user"></i>
+                    </a>
                     <a class="nav-link" th:if="${session.klient != null}" th:href="@{/klient/profil}">
-                            <i class="fa fa-user"></i>
-                            </a>
-
+                        <i class="fa fa-user"></i>
+                    </a>
                 </div>
             </div>
         </nav>
