@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 
@@ -30,17 +29,14 @@ public class KlientController {
     }
 
     @PostMapping(path = "/loginRequest")
-    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final HttpSession session, SessionStatus sessionStatus) {
+    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final HttpSession session) {
         final Klient klient = klientService.login(loginCredentials.getLogin(),  loginCredentials.getPassword());
 
         if (klient != null) {
             session.setAttribute("klient", klient);
-
             return "redirect:/";
-        } else {
+        } else return "redirect:/klient/login";
 
-            return "redirect:/klient/login";
-        }
 
     }
 
@@ -65,13 +61,7 @@ public class KlientController {
     }
 
     @PostMapping("/buyTicket")
-    public String buyTicket(@RequestParam Long idKlienta, @RequestParam Long idBiletu) {
-        BiletyKlienci biletyKlienci = new BiletyKlienci();
-        biletyKlienci.setNrKlienta(idKlienta);
-        biletyKlienci.setNrBiletu(idBiletu);
-        final Date dataZakupu = new Date(System.currentTimeMillis());
-        biletyKlienci.setDataZakupu(dataZakupu);
-        biletyKlienci.setDataWaznosci(new Date(dataZakupu.getTime() + 1000 * 60 * 60 * 24 * 10));
+    public String buyTicket(@ModelAttribute BiletyKlienci biletyKlienci) {
         biletyKlienciService.save(biletyKlienci);
         return "redirect:/";
     }
