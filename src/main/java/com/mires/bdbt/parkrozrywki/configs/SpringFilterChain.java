@@ -18,7 +18,7 @@ public class SpringFilterChain {
                         .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
+                        .loginPage("/admin/login")
                         .defaultSuccessUrl("/index")
                         .permitAll()
                 )

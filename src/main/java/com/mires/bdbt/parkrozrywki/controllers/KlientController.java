@@ -1,27 +1,23 @@
 package com.mires.bdbt.parkrozrywki.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
 import com.mires.bdbt.parkrozrywki.entities.LoginCredentials;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
-import oracle.sql.DATE;
-import org.json.JSONObject;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Map;
 
 
 @Controller
 @RequestMapping("/klient")
+@SessionAttributes("klient")
 public class KlientController {
     private final KlientService klientService;
     private final BiletyKlienciService biletyKlienciService;
@@ -32,11 +28,12 @@ public class KlientController {
     }
 
     @PostMapping(path = "/loginRequest")
-    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final RedirectAttributes redirectAttributes) {
+    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final HttpSession session, SessionStatus sessionStatus) {
         final Klient klient = klientService.login(loginCredentials.getLogin(),  loginCredentials.getPassword());
 
         if (klient != null) {
-            redirectAttributes.addFlashAttribute("klient", klient);
+            session.setAttribute("klient", klient);
+
             return "redirect:/";
         } else {
 

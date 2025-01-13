@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div th:replace="common/Header :: headerFragment">Some Content</div>
+<div  th:replace="common/Header :: headerFragment" th:with="klient=${klient}">Some Content</div>
 <h1>Nasze Atrakcje</h1>
 <table>
     <thead>

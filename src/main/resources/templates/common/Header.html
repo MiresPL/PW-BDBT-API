@@ -2,7 +2,8 @@
 <header class="header-section" th:fragment="headerFragment">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom-nav-container">
-            <a class="navbar-brandName" th:redirect="@{/home/Home}">Nazwa Parku</a>
+            <a class="navbar-brandName" th:if="${session.klient != null}" th:text="${session.klient.imie}">.</a>
+            <a class="navbar-brandName" th:if="${session.klient == null}">Nazwa Parku</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-menu">
                     <li class="navbar-item active">
@@ -16,9 +17,13 @@
                     </li>
                 </ul>
                 <div class="navbar-user-option-box">
-                    <a class="nav-link" th:href="@{/login}">
+                    <a class="nav-link" th:if="${session.klient == null}" th:href="@{/klient/login}">
                             <i class="fa fa-user"></i>
                         </a>
+                    <a class="nav-link" th:if="${session.klient != null}" th:href="@{/klient/profil}">
+                            <i class="fa fa-user"></i>
+                            </a>
+
                 </div>
             </div>
         </nav>
