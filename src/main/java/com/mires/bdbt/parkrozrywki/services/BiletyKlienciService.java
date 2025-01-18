@@ -1,5 +1,6 @@
 package com.mires.bdbt.parkrozrywki.services;
 
+import com.mires.bdbt.parkrozrywki.entities.Bilet;
 import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.repositories.BiletyKlienciRepository;
 import jakarta.transaction.Transactional;
@@ -22,6 +23,10 @@ public class BiletyKlienciService {
 
     public BiletyKlienci findById(Long id) {
         return biletyKlienciRepository.findById(id).orElse(null);
+    }
+
+    public List<Bilet> getTicketsByKlient(Long id) {
+        return biletyKlienciRepository.findTicketsByNrKlienta(id);
     }
 
     public void save(BiletyKlienci biletyKlienci) {

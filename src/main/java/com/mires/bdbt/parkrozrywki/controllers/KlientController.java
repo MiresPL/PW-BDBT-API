@@ -47,7 +47,8 @@ public class KlientController {
         return "login/Login";
     }
     @GetMapping("/profil")
-    public String profil(final Model model, HttpServletRequest request) {
+    public String profil(final Model model, HttpSession session, HttpServletRequest request) {
+        model.addAttribute("tickets", biletyKlienciService.getTicketsByKlient(((Klient) session.getAttribute("klient")).getNrKlienta()));
         return "profile/Profile";
     }
 
