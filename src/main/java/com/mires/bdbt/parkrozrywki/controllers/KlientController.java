@@ -51,15 +51,9 @@ public class KlientController {
         return "profile/Profile";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        Klient klient = klientService.findById(id);
-        model.addAttribute("klient", klient);
-        return "klient/add";
-    }
-
     @PostMapping("/add")
-    public String saveKlient(@ModelAttribute("klient") Klient klient) {
+    public String saveKlient(@ModelAttribute("klient") Klient klient, final HttpSession session) {
+        session.setAttribute("klient", klient);
         klientService.save(klient);
         return "redirect:/klient/profil";
     }

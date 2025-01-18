@@ -1,29 +1,46 @@
 package com.mires.bdbt.parkrozrywki.configs;
 
+import com.mires.bdbt.parkrozrywki.services.WlascicielService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Collections;
+
 @Configuration
 public class SpringFilterChain {
+    private final WlascicielService wlascicielService;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
+
+    public SpringFilterChain(WlascicielService wlascicielService, PasswordEncoder passwordEncoder, CustomAuthenticationProvider customAuthenticationProvider) {
+        this.wlascicielService = wlascicielService;
+        this.passwordEncoder = passwordEncoder;
+        this.customAuthenticationProvider = customAuthenticationProvider;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/admin/login")
-                        .defaultSuccessUrl("/index")
+                        .loginProcessingUrl("/admin/loginRequest") // Spring Security intercepts form submission
+                        .defaultSuccessUrl("/admin")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/index")
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/index")
                         .permitAll());
         http.csrf(AbstractHttpConfigurer::disable);
@@ -32,7 +49,7 @@ public class SpringFilterChain {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManager() {
+        return new ProviderManager(Collections.singletonList(customAuthenticationProvider));
     }
 }

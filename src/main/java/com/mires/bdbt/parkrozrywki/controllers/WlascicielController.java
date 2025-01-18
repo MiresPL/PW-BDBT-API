@@ -7,6 +7,8 @@ import com.mires.bdbt.parkrozrywki.services.PracownicyService;
 import com.mires.bdbt.parkrozrywki.services.WlascicielService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,25 +29,26 @@ public class WlascicielController {
     }
 
     @GetMapping
-    public List<Pracownik> admin(final Model model) {
+    public String admin(final Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Wlasciciel wlasciciel = wlascicielService.findByLogin(username);
+        model.addAttribute("admin", wlasciciel);
         model.addAttribute("pracownicy", pracownicyService.getAllPracownicy());
 
-        return pracownicyService.getAllPracownicy();
+        return "admin/Admin";
     }
 
-    @PostMapping(path = "/loginRequest")
-    public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final HttpSession session) {
-        final Wlasciciel wlasciciel = wlascicielService.login(loginCredentials.getLogin(),  loginCredentials.getPassword());
-        if (wlasciciel != null) {
-            return "redirect:/admin";
-        } else
-            return "redirect:/admin/login";
+    @PostMapping("/loginRequest")
+    public String loginRequest() {
+        return "redirect:/admin"; // On success, redirect to the admin dashboard.
     }
 
     @GetMapping("/login")
-    public String login(final Model model, HttpServletRequest request) {
-        model.addAttribute("loginCredentials", new LoginCredentials());
-        model.addAttribute("request", request);
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Niepoprawne dane logowania.");
+        }
         return "admin/Login";
     }
 }
