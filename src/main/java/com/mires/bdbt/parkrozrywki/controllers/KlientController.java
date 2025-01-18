@@ -46,6 +46,10 @@ public class KlientController {
         model.addAttribute("request", request);
         return "login/Login";
     }
+    @GetMapping("/profil")
+    public String profil(final Model model, HttpServletRequest request) {
+        return "profile/Profile";
+    }
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable Long id, Model model) {
@@ -57,12 +61,15 @@ public class KlientController {
     @PostMapping("/add")
     public String saveKlient(@ModelAttribute("klient") Klient klient) {
         klientService.save(klient);
-        return "redirect:/";
+        return "redirect:/klient/profil";
     }
 
     @PostMapping("/buyTicket")
-    public String buyTicket(@ModelAttribute BiletyKlienci biletyKlienci) {
+    public String buyTicket(@ModelAttribute BiletyKlienci biletyKlienci, final HttpSession session) {
+        final Klient klient = (Klient) session.getAttribute("klient");
+        biletyKlienci.setNrKlienta(klient.getNrKlienta());
+        biletyKlienci.setDataZakupu(new Date(System.currentTimeMillis()));
         biletyKlienciService.save(biletyKlienci);
-        return "redirect:/";
+        return "redirect:/bilety";
     }
 }

@@ -36,11 +36,10 @@ public class WlascicielController {
     @PostMapping(path = "/loginRequest")
     public String loginRequest(@ModelAttribute LoginCredentials loginCredentials, final HttpSession session) {
         final Wlasciciel wlasciciel = wlascicielService.login(loginCredentials.getLogin(),  loginCredentials.getPassword());
-
         if (wlasciciel != null) {
-            session.setAttribute("admin", wlasciciel);
             return "redirect:/admin";
-        } else return "redirect:/admin/login";
+        } else
+            return "redirect:/admin/login";
     }
 
     @GetMapping("/login")

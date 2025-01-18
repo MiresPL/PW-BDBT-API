@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" th:href="@{/css/profile/profile.css}">
-    <script>
-        function showAlert() {
-            alert("Dane zostały zaktualizowane!");
-        }
-    </script>
 </head>
 <body>
 <div class="profile-container">
     <h1>User Profile</h1>
-    <form th:action="@{/klient/add}" method="post" th:object="${klient}" onsubmit="showAlert()">
+    <form th:action="@{/klient/add}" method="post" th:object="${klient}">
         <label for="username">Username:</label>
         <input type="text" id="username" name="login" th:field="*{login}" readonly><br>
 

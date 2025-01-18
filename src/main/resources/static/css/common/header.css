@@ -199,7 +199,9 @@
     padding-right: 0;
     padding-left: 0;
 }
-
+.nav-link{
+    width: 180px;
+}
 .navbar-menu .dropdown-menu {
     position: static;
     float: none;

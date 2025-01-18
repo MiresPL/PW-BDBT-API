@@ -1,4 +1,4 @@
-body{
+.container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,6 @@ body{
     height: 100vh;
     flex-direction: column;
     background-color: #efe2f8;
-
 }
 form{
     color: whitesmoke;

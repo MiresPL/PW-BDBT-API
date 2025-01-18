@@ -19,6 +19,7 @@ public class WlascicielService {
 
     public Wlasciciel login(final String login, final String password) {
         Wlasciciel wlasciciel = wlascicielRepository.findByLogin(login);
+        System.out.println(passwordEncoder.encode(wlasciciel.getHaslo()));
         if (wlasciciel != null && passwordEncoder.matches(password, wlasciciel.getHaslo())) return wlasciciel;
         return null;
     }
