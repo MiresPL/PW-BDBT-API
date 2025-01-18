@@ -18,6 +18,12 @@ public class Wlasciciel {
     @Column(name = "NR_WLASCICIELA")
     private Long nrWlasciciela;
 
+    @Column(name = "LOGIN", length = 20)
+    private String login;
+
+    @Column(name = "HASLO", length = 1000)
+    private String haslo;
+
     @Column(name = "IMIE", length = 20)
     private String imie;
 
