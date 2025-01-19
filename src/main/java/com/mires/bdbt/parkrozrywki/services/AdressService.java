@@ -20,12 +20,16 @@ public class AdressService {
         return adressRepository.findAll();
     }
 
+    public Long getNextId() {
+        return adressRepository.findAll().stream().mapToLong(Adres::getNrAdresu).max().orElse(0) + 1;
+    }
+
     public Adres findById(Long id) {
         return adressRepository.findById(id).orElse(null);
     }
 
-    public void save(Adres adres) {
-        adressRepository.save(adres);
+    public Adres save(Adres adres) {
+        return adressRepository.save(adres);
     }
 
     public void remove(Long id) {

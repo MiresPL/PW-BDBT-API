@@ -44,8 +44,8 @@
                 <h2>Your Tickets</h2>
                 <ul>
                     <li th:each="ticket : ${tickets}">
-                        <p th:text="'Ticket ID: ' + ${ticket.id}"></p>
-                        <p th:text="'Ticket Date: ' + ${ticket.date}"></p>
+                        <p th:text="'Ticket ID: ' + ${ticket.bilet.nrBiletu}"></p>
+                        <p th:text="'Ticket Date: ' + ${ticket.biletyKlienci.dataZakupu}"></p>
                         <!-- Add any other ticket fields you want to display -->
                     </li>
                 </ul>

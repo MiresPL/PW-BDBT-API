@@ -18,9 +18,17 @@ th {
     text-align: left;
 }
 
-button {
+.edit {
     padding: 5px 10px;
     background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.remove {
+    padding: 5px 10px;
+    background-color: #8a1202;
     color: white;
     border: none;
     cursor: pointer;
@@ -32,7 +40,6 @@ button:hover {
 
 /* Modal styles */
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 0;

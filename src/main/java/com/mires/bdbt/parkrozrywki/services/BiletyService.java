@@ -20,6 +20,10 @@ public class BiletyService {
         return biletyRepository.findAll();
     }
 
+    public List<Bilet> getTicketsByKlient(Long id) {
+        return biletyRepository.findBiletyByIdKlienta(id);
+    }
+
     public Bilet findById(Long id) {
         return biletyRepository.findById(id).orElse(null);
     }

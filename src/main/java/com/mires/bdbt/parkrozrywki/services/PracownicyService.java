@@ -16,10 +16,24 @@ public class PracownicyService {
         this.pracownicyRepository = pracownicyRepository;
     }
 
+    @Transactional
     public Pracownik findById(final Long id) {
-        return pracownicyRepository.findById(id).orElse(null);
+        final Pracownik pracownik = pracownicyRepository.findByIdWithAdres(id);
+        if (pracownik == null) {
+            throw new IllegalArgumentException("Pracownik not found");
+        }
+        if (pracownik.getAdres() != null) {
+            pracownik.getAdres().getNrAdresu();
+        }
+        return pracownik;
     }
 
+    @Transactional
+    public Long getNextId() {
+        return pracownicyRepository.findAll().stream().mapToLong(Pracownik::getNrPracownika).max().orElse(0) + 1;
+    }
+
+    @Transactional
     public List<Pracownik> getAllPracownicy() {
         return pracownicyRepository.getAllPracownikInfo();
     }

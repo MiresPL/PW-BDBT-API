@@ -27,8 +27,4 @@ public class ParkRozrywki {
 
     @Column(name = "NR_ADRESU")
     private Long nrAdresu;
-
-    @OneToMany(mappedBy = "parkRozrywki", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Pracownik> pracownikList;
 }

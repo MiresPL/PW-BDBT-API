@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Pracownicy</title>
+    <link rel="stylesheet" th:href="@{/css/admin/attractionsAdmin.css}">
+</head>
+<body>
+<div id="editPracownikModal" class="modal">
+    <div class="modal-content">
+        <span class="close" th:href="@{../admin}">&times;</span>
+        <h2>Edit Pracownik</h2>
+        <form id="editPracownikForm" th:action="@{/pracownicy/add}" th:object="${pracownikAdresWrapper}" method="post">
+            <input type="hidden" id="pracownikId" th:field="*{pracownik.nrPracownika}">
+            <input type="hidden" id="nrParku" th:field="*{pracownik.nrParku}">
+
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" th:field="*{pracownik.imie}"><br>
+
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" th:field="*{pracownik.nazwisko}"><br>
+
+            <label for="pesel">PESEL:</label>
+            <input type="text" id="pesel" th:field="*{pracownik.pesel}" maxlength="11"><br>
+
+            <label for="dataUrodzenia">Data Urodzenia:</label>
+            <input type="date" id="dataUrodzenia" th:field="*{pracownik.dataUrodzenia}"><br>
+
+            <label for="nrTelefonu">Numer Telefonu:</label>
+            <input type="text" id="nrTelefonu" th:field="*{pracownik.nrTelefonu}"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{pracownik.email}"><br>
+
+            <label for="stanowisko">Stanowisko:</label>
+            <input type="text" id="stanowisko" th:field="*{pracownik.stanowisko}"><br>
+
+            <label for="nrKonta">Numer Konta:</label>
+            <input type="text" id="nrKonta" th:field="*{pracownik.nrKonta}" maxlength="26"><br>
+
+            <label for="dataZatrudnienia">Data Zatrudnienia:</label>
+            <input type="date" id="dataZatrudnienia" th:field="*{pracownik.dataZatrudnienia}"><br>
+
+            <input type="hidden" id="nrAdresu" th:field="*{adres.nrAdresu}" required><br>
+
+            <label for="miejscowosc">Miejscowość:</label>
+            <input type="text" id="miejscowosc" th:field="*{adres.miejscowosc}" th:value="*{adres.miejscowosc}" required><br>
+
+            <label for="ulica">Ulica:</label>
+            <input type="text" id="ulica" th:field="*{adres.ulica}" th:value="*{adres.ulica}"><br>
+
+            <label for="nrDomu">Numer Domu:</label>
+            <input type="text" id="nrDomu" th:field="*{adres.nrDomu}" th:value="*{adres.nrDomu}"><br>
+
+            <label for="nrLokalu">Numer Lokalu:</label>
+            <input type="text" id="nrLokalu" th:field="*{adres.nrLokalu}" th:value="*{adres.nrLokalu}"><br>
+
+            <input type="hidden" id="nrPoczty" th:field="*{adres.poczta.nrPoczty}" th:value="*{adres.poczta.nrPoczty}"><br>
+            <br>
+
+            <input type="submit" value="Update"><br>
+            <a class="back" th:href="@{../../admin}">Powrót</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

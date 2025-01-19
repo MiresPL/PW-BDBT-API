@@ -25,8 +25,8 @@ public class BiletyKlienciService {
         return biletyKlienciRepository.findById(id).orElse(null);
     }
 
-    public List<Bilet> getTicketsByKlient(Long id) {
-        return biletyKlienciRepository.findTicketsByNrKlienta(id);
+    public BiletyKlienci findByNrKlientaAndNrBiletu(Long nrKlienta, Long nrBiletu) {
+        return biletyKlienciRepository.findByNrKlientaAndNrBiletu(nrKlienta, nrBiletu);
     }
 
     public void save(BiletyKlienci biletyKlienci) {

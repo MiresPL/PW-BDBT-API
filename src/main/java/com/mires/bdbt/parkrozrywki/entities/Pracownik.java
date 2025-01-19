@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -25,7 +26,7 @@ public class Pracownik {
     private String pesel;
 
     @Column(name = "DATA_URODZENIA")
-    private LocalDate dataUrodzenia;
+    private Date dataUrodzenia;
 
     @Column(name = "NR_TELEFONU", length = 16)
     private String nrTelefonu;
@@ -40,13 +41,12 @@ public class Pracownik {
     private String nrKonta;
 
     @Column(name = "DATA_ZATRUDNIENIA")
-    private LocalDate dataZatrudnienia;
+    private Date dataZatrudnienia;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Use FetchType.LAZY to load related entities on demand
-    @JoinColumn(name = "NR_PARKU") // Maps the foreign key
-    private ParkRozrywki parkRozrywki;
+    @Column(name = "NR_PARKU")
+    private Long nrParku;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Use FetchType.LAZY to load related entities on demand
+    @ManyToOne(fetch = FetchType.EAGER) // Use FetchType.LAZY to load related entities on demand
     @JoinColumn(name = "NR_ADRESU") // Maps the foreign key
     private Adres adres;
 }

@@ -2,8 +2,10 @@ package com.mires.bdbt.parkrozrywki.controllers;
 
 import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
 import com.mires.bdbt.parkrozrywki.entities.Klient;
+import com.mires.bdbt.parkrozrywki.entities.KlientBilet;
 import com.mires.bdbt.parkrozrywki.entities.LoginCredentials;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
+import com.mires.bdbt.parkrozrywki.services.BiletyService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.sql.Date;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -21,10 +24,12 @@ import java.sql.Date;
 @SessionAttributes("klient")
 public class KlientController {
     private final KlientService klientService;
+    private final BiletyService biletyService;
     private final BiletyKlienciService biletyKlienciService;
 
-    public KlientController(KlientService klientService, BiletyKlienciService biletyKlienciService) {
+    public KlientController(KlientService klientService, BiletyService biletyService,  BiletyKlienciService biletyKlienciService) {
         this.klientService = klientService;
+        this.biletyService = biletyService;
         this.biletyKlienciService = biletyKlienciService;
     }
 
@@ -48,7 +53,11 @@ public class KlientController {
     }
     @GetMapping("/profil")
     public String profil(final Model model, HttpSession session, HttpServletRequest request) {
-        model.addAttribute("tickets", biletyKlienciService.getTicketsByKlient(((Klient) session.getAttribute("klient")).getNrKlienta()));
+        final Klient klient = (Klient) session.getAttribute("klient");
+        model.addAttribute("klient", klient);
+        model.addAttribute("tickets", biletyService.getTicketsByKlient(klient.getNrKlienta()).stream().map(ticket ->
+                new KlientBilet(ticket, biletyKlienciService.findByNrKlientaAndNrBiletu(klient.getNrKlienta(), ticket.getNrBiletu()))
+        ).collect(Collectors.toList()));
         return "profile/Profile";
     }
 
