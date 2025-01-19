@@ -2,14 +2,182 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Administracyjny</title>
+    <title>Edit Pracownicy</title>
+    <link rel="stylesheet" th:href="@{/css/admin/attractionsAdmin.css}">
 </head>
 <body>
-<h1>Admin Panel</h1>
-<p th:text="${session.admin.imie}"></p>
-<ul>
-    <li><a th:href="@{/admin/pracownicy}">Employees</a></li>
-    <li><a th:href="@{/admin/atrakcje}">Attractions</a></li>
-</ul>
+<div class="container">
+    <h1>Edit Pracownicy</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pracownik : ${pracownicy}">
+            <td th:text="${pracownik.imie + ' ' + pracownik.nazwisko}"></td>
+            <td><button th:onclick="'openEditPracownikModal(' + ${pracownik.nrPracownika} + ')'">Edit</button>
+            </td>        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Edit Pracownik Modal -->
+<div id="editPracownikModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditPracownikModal()">&times;</span>
+        <h2>Edit Pracownik</h2>
+        <form id="editPracownikForm" th:action="@{/admin/editPracownik}" method="post">
+            <input type="hidden" id="pracownikId" name="nrPracownika">
+
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie"><br>
+
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko"><br>
+
+            <label for="pesel">PESEL:</label>
+            <input type="text" id="pesel" name="pesel" maxlength="11"><br>
+
+            <label for="dataUrodzenia">Data Urodzenia:</label>
+            <input type="date" id="dataUrodzenia" name="dataUrodzenia"><br>
+
+            <label for="nrTelefonu">Numer Telefonu:</label>
+            <input type="text" id="nrTelefonu" name="nrTelefonu"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="stanowisko">Stanowisko:</label>
+            <input type="text" id="stanowisko" name="stanowisko"><br>
+
+            <label for="nrKonta">Numer Konta:</label>
+            <input type="text" id="nrKonta" name="nrKonta" maxlength="26"><br>
+
+            <label for="dataZatrudnienia">Data Zatrudnienia:</label>
+            <input type="date" id="dataZatrudnienia" name="dataZatrudnienia"><br>
+            <button type="button" onclick="openEditAdresModal(document.getElementById('pracownikId').value)">Edit Adres</button>
+            <br>
+            <!-- Foreign key references -->
+            <input type="hidden" id="nrParku" name="parkRozrywki.nrParku">
+            <input type="hidden" id="nrAdresu" name="adres.nrAdresu">
+
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+
+<div id="editAdresModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditAdresModal()">&times;</span>
+        <h2>Edit Adres</h2>
+        <form id="editAdresForm" th:action="@{/adress/add}" method="post">
+            <input type="hidden" id="adresId" name="id">
+            <label for="miasto">Miasto:</label>
+            <input type="text" id="miasto" name="miejscowosc"><br>
+
+            <label for="ulica">Ulica:</label>
+            <input type="text" id="ulica" name="ulica"><br>
+
+            <label for="nrDomu">Nr Domu:</label>
+            <input type="text" id="nrDomu" name="nrDomu"><br>
+
+            <label for="nrLokalu">Nr Lokalu:</label>
+            <input type="text" id="nrLokalu" name="nrLokalu"><br>
+
+            <label for="kodPocztowy">Kod Pocztowy:</label>
+            <input type="text" id="kodPocztowy" name="kodPocztowy"><br>
+
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let pracownicy = /*[[${pracownicy}]]*/;
+    console.log(pracownicy);
+
+    function openEditPracownikModal(id) {
+        const pracownik = pracownicy.find(p => p.nrPracownika === id);
+
+        if (pracownik) {
+            document.getElementById('pracownikId').value = pracownik.nrPracownika;
+            document.getElementById('imie').value = pracownik.imie;
+            document.getElementById('nazwisko').value = pracownik.nazwisko;
+            document.getElementById('pesel').value = pracownik.pesel;
+            document.getElementById('dataUrodzenia').value = pracownik.dataUrodzenia;
+            document.getElementById('nrTelefonu').value = pracownik.nrTelefonu;
+            document.getElementById('email').value = pracownik.email;
+            document.getElementById('stanowisko').value = pracownik.stanowisko;
+            document.getElementById('nrKonta').value = pracownik.nrKonta;
+            document.getElementById('dataZatrudnienia').value = pracownik.dataZatrudnienia;
+
+            // Handle foreign keys
+            document.getElementById('nrParku').value = pracownik.parkRozrywki ? pracownik.parkRozrywki.nrParku : '';
+            document.getElementById('nrAdresu').value = pracownik.adres ? pracownik.adres.nrAdresu : '';
+
+            document.getElementById('editPracownikModal').style.display = "block";
+        }
+    }
+    function closeEditPracownikModal() {
+        document.getElementById('editPracownikModal').style.display = "none";
+    }
+
+
+    function openEditAdresModal(nrPracownika) {
+        console.log("NrPracownika:", nrPracownika);  // Check if the nrPracownika is the correct type and value
+        console.log("Pracownicy array:", pracownicy);  // Log the entire pracownicy array to check its contents
+
+        // Ensure nrPracownika is treated as a number for comparison
+        const nrPracownikaInt = parseInt(nrPracownika, 10);  // Convert to integer
+
+        // Find the pracownik by nrPracownika
+        const pracownik = pracownicy.find(p => p.nrPracownika === nrPracownikaInt);
+
+        if (pracownik && pracownik.adres) {
+            const adres = pracownik.adres;
+
+            // Log the address data to verify it's correct
+            console.log("Adres data:", adres);
+
+            // Fill the modal fields with data
+            document.getElementById('adresId').value = adres.nrAdresu || '';
+            document.getElementById('miasto').value = adres.miejscowosc || '';
+            document.getElementById('ulica').value = adres.ulica || '';
+            document.getElementById('nrDomu').value = adres.nrDomu || '';
+            document.getElementById('nrLokalu').value = adres.nrLokalu || '';
+            document.getElementById('kodPocztowy').value = adres.poczta && adres.poczta.kodPocztowy ? adres.poczta.kodPocztowy : '';
+
+            // Display the modal
+            document.getElementById('editAdresModal').style.display = "block";
+        } else {
+            console.error("Pracownik or Adres not found for nrPracownika:", nrPracownikaInt);
+        }
+    }
+
+
+
+
+    function closeEditAdresModal() {
+        document.getElementById('editAdresModal').style.display = "none";
+    }
+
+
+    function closeEditAdresModal() {
+        document.getElementById('editAdresModal').style.display = "none";
+    }
+
+    // Trigger the address modal from the first modal
+    function openAdresFromPracownikModal() {
+        const adresId = document.getElementById('nrAdresu').value;
+        const adres = pracownicy.find(p => p.adres && p.adres.nrAdresu == adresId).adres;
+
+        openEditAdresModal(adres);
+    }
+    /*]]>*/
+</script>
 </body>
 </html>
