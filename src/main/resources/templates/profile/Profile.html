@@ -11,13 +11,18 @@
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans_old:400,500,700|Google+Sans+Text_old:400,500,700&lang=pl">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" th:href="@{/images/favicon.svg}">
 </head>
 <body>
+<div style="border-bottom: 1px black solid;" th:replace="common/Header :: headerFragment">Some Content</div>
 <div class="profile-container">
-    <h1>Uasdasdasdasdasdofile</h1>
+    <h1>Twój Profil</h1>
+    <div class="logout">
+        <a th:href="@{/klient/logout}">Wyloguj</a>
+    </div>
     <div class="profile-content">
         <div class="edit-profile">
-            <h2>Edit Profile</h2>
+            <h2>Edytuj Informacje</h2>
             <form th:action="@{/klient/add}" method="post" th:object="${klient}">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="login" th:field="*{login}" readonly><br>
@@ -37,16 +42,16 @@
                 <label for="birthDate">Data Urodzenia:</label>
                 <input type="date" id="birthDate" name="dataUrodzenia" th:field="*{dataUrodzenia}"><br>
 
-                <input type="submit" value="Update">
+                <input type="submit" value="Zaktualizuj">
             </form>
         </div>
         <div class="tickets">
-                <h2>Your Tickets</h2>
+                <h2>Twoje Bilety</h2>
                 <ul>
                     <li th:each="ticket : ${tickets}">
-                        <p th:text="'Ticket ID: ' + ${ticket.bilet.nrBiletu}"></p>
-                        <p th:text="'Ticket Date: ' + ${ticket.biletyKlienci.dataZakupu}"></p>
-                        <!-- Add any other ticket fields you want to display -->
+                        <p th:text="'ID Biletu: ' + ${ticket.bilet.nrBiletu}"></p>
+                        <p th:text="'Data Zakupu: ' + ${ticket.biletyKlienci.dataZakupu}"></p>
+                        <p th:text="'Data Ważnosci: ' + ${ticket.biletyKlienci.dataWaznosci}"></p>
                     </li>
                 </ul>
         </div>

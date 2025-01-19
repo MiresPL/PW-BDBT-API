@@ -2,30 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Pracownicy</title>
+    <title>Panel Administracyjny</title>
     <link rel="stylesheet" th:href="@{/css/admin/attractionsAdmin.css}">
+    <link rel="stylesheet" th:href="@{/css/global/global.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/favicon.svg}">
 </head>
 <body>
 <div class="container">
-    <h1>Edit Pracownicy</h1>
+    <h1>Panel Administracyjny</h1>
+    <div class="logout">
+        <a th:href="@{/logout}">Wyloguj</a>
+    </div>
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Actions</th>
+            <th>Imię i Nazwisko
+            </th>
+            <th>Działania</th>
         </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>
+                Nowy Pracownik
+            </td>
+            <td>
+                <a class="edit" th:href="@{../pracownicy/addNew}">Dodaj</a>
+            </td>
+        </tr>
         <tr th:each="pracownik : ${pracownicy}">
             <td th:text="${pracownik.imie + ' ' + pracownik.nazwisko}"></td>
             <td>
-                <a class="edit" th:href="@{../pracownicy/update/{id}(id=${pracownik.nrPracownika})}">Edit</a>
-                <a class="remove" th:href="@{../pracownicy/remove/{id}(id=${pracownik.nrPracownika})}">Usun</a>
+                <a class="edit" th:href="@{../pracownicy/update/{id}(id=${pracownik.nrPracownika})}">Edytuj</a>
+                <a class="remove" th:href="@{../pracownicy/remove/{id}(id=${pracownik.nrPracownika})}">Usuń</a>
             </td>
         </tr>
-        <tr>
-            <a class="add" th:href="@{../pracownicy/addNew}">Add</a>
-        </tr>
+
         </tbody>
     </table>
 </div>

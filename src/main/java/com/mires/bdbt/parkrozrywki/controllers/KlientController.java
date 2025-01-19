@@ -58,6 +58,7 @@ public class KlientController {
         model.addAttribute("tickets", biletyService.getTicketsByKlient(klient.getNrKlienta()).stream().map(ticket ->
                 new KlientBilet(ticket, biletyKlienciService.findByNrKlientaAndNrBiletu(klient.getNrKlienta(), ticket.getNrBiletu()))
         ).collect(Collectors.toList()));
+        model.addAttribute("request", request);
         return "profile/Profile";
     }
 

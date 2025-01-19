@@ -43,3 +43,26 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #5b33a1;
 }
+
+header{
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    margin-bottom: 2%;
+}
+
+.logout a{
+    position: absolute;
+    top: calc(4% + 50px);
+    right: 5%;
+    padding: 5px 10px;
+    background-color: #8a1202;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.logout a:hover{
+    background-color: #c70000;
+    color: white;
+    text-decoration: none;
+}

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>Edit Pracownicy</title>
     <link rel="stylesheet" th:href="@{/css/admin/attractionsAdmin.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/favicon.svg}">
 </head>
 <body>
 <div id="editPracownikModal" class="modal">
     <div class="modal-content">
-        <span class="close" th:href="@{../admin}">&times;</span>
+        <a class="close" th:href="@{../../admin}">&times;</a>
         <h2>Dodaj Pracownika</h2>
         <form id="editPracownikForm" th:action="@{/pracownicy/add}" th:object="${pracownikAdresWrapper}" method="post">
             <input type="hidden" id="pracownikId" th:field="*{pracownik.nrPracownika}">
@@ -54,14 +55,13 @@
             <label for="nrLokalu">Numer Lokalu:</label>
             <input type="text" id="nrLokalu" th:field="*{adres.nrLokalu}" th:value="*{adres.nrLokalu}"><br>
 
-            <label for="nrPoczty">Poczta:</label><br>
+            <label for="nrPoczty">Poczta:</label>
             <select id="nrPoczty" name="nrPoczty" th:field="*{adres.poczta.nrPoczty}">
                 <option th:each="poczta : ${poczty}" th:value="${poczta.nrPoczty}" th:text="${poczta.miastoPoczty} + ' ' + ${poczta.kodPocztowy}"></option>
             </select><br>
             <br>
 
             <input type="submit" value="Dodaj"><br>
-            <a class="back" th:href="@{../../admin}">Powrót</a>
         </form>
     </div>
 </div>

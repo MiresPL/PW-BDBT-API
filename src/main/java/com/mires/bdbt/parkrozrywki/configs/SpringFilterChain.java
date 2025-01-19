@@ -41,7 +41,7 @@ public class SpringFilterChain {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/index")
+                        .logoutSuccessUrl("/")
                         .permitAll());
         http.csrf(AbstractHttpConfigurer::disable);
 
