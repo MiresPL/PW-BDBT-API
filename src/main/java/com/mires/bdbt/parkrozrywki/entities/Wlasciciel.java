@@ -24,12 +24,12 @@ public class Wlasciciel implements UserDetails {
     }
     @Override
     public String getPassword() {
-        return getLogin();
+        return this.getHaslo();
     }
 
     @Override
     public String getUsername() {
-        return getPassword();
+        return this.getLogin();
     }
 
     @Id

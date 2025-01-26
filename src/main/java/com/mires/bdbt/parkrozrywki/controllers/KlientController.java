@@ -46,11 +46,23 @@ public class KlientController {
     }
 
     @GetMapping("/login")
-    public String login(final Model model, HttpServletRequest request) {
+    public String login(@RequestParam(value = "error", required = false) String error, final Model model, HttpServletRequest request) {
+        //throw new RuntimeException("Login page not implemented");
         model.addAttribute("loginCredentials", new LoginCredentials());
         model.addAttribute("request", request);
+        if (error != null) {
+            model.addAttribute("error", "Niepoprawne dane logowania.");
+        }
         return "login/Login";
     }
+
+    @GetMapping("/logout")
+    public String logout(final Model model, final HttpSession session) {
+        model.addAttribute("klient", null);
+        session.setAttribute("klient", null);
+        return "redirect:/";
+    }
+
     @GetMapping("/profil")
     public String profil(final Model model, HttpSession session, HttpServletRequest request) {
         final Klient klient = (Klient) session.getAttribute("klient");

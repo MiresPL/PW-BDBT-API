@@ -47,7 +47,7 @@ public class WlascicielController {
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
-            model.addAttribute("errorMessage", "Niepoprawne dane logowania.");
+            model.addAttribute("error", "Niepoprawne dane logowania.");
         }
         return "admin/Login";
     }

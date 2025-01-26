@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/login/login.css}">
+    <link rel="stylesheet" th:href="@{/css/error/error.css}">
     <link rel="stylesheet" th:href="@{/css/global/global.css}">
     <link rel="stylesheet" th:href="@{/css/common/header.css}">
     <link rel="stylesheet" th:href="@{/css/fonts/font-awesome.min.css}">
@@ -16,19 +16,11 @@
 <body>
 <div th:replace="common/Header :: headerFragment">Some Content</div>
 <div class="container">
-Zaloguj się
-<form action="#" th:action="@{/klient/loginRequest}" th:object="${loginCredentials}" method="post">
-    <div>
-        <label for="login">Nazwa użytkownika:</label><br>
-        <input type="text" id="login" th:field="*{login}"><br>
+    <div class="error">
+        <p class="label">Oops! Coś poszło nie tak....</p>
+        <p class="errorMessage" th:text="${errorMessage}">test</p>
+        <a class="returnButton" th:href="@{/}">Powrót</a>
     </div>
-    <div>
-        <label for="haslo">Hasło:</label><br>
-        <input type="password" id="haslo" th:field="*{password}"><br><br>
-    </div>
-    <p th:if="${error}" style="color: red;">Niepoprawne dane logowania</p>
-    <input type="submit" value="Zaloguj">
-</form>
 </div>
 </body>
 </html>

@@ -50,9 +50,14 @@
             </script>
         </div>
     <div class="text-container">
-        <p>Największy park rozrywki po tej stronie drogi mlecznej!</p>
-        <p>blah blah blah blah</p>
-        <button class="btn">Kup Bilet</button>
+        <h1>O nas</h1>
+        <p>Witamy w naszym parku rozrywki – miejscu, gdzie zabawa nie ma końca! Jesteśmy zespołem pasjonatów, którzy z miłości do przygód i dobrej energii stworzyli przestrzeń pełną atrakcji dla całej rodziny. Naszym celem jest dostarczanie niezapomnianych emocji i wspomnień, które zostaną z Wami na długo.</p>
+
+        <p>Oferujemy szeroką gamę atrakcji – od ekscytujących kolejek górskich, przez strefy tematyczne, aż po przestrzenie relaksu i zabawy dla najmłodszych. Dbamy o bezpieczeństwo, komfort i radość każdego z naszych gości, ponieważ wierzymy, że każdy zasługuje na chwilę beztroskiej zabawy.</p>
+
+        <p>Dołącz do nas i przekonaj się, dlaczego nasz park rozrywki to najlepsze miejsce na rodzinne wypady, spotkania z przyjaciółmi i wyjątkowe wydarzenia. Czekamy na Ciebie!</p>
+        <a  th:if="${session.klient == null }" th:href="@{/klient/login}">Kup Bilet</a>
+        <a  th:if="${session.klient != null }" th:href="@{/bilety}">Kup Bilet</a>
     </div>
     </div>
 

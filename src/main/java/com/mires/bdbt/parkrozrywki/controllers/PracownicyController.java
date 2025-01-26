@@ -38,14 +38,14 @@ public class PracownicyController {
         Hibernate.initialize(pracownik.getAdres());
 
         System.out.println(pracownik.getAdres().getNrAdresu());
-        PracownikAdresWrapper pracownikAdresWrapper =  new PracownikAdresWrapper(pracownik, pracownik.getAdres()); // Fetch the object from the database
+        PracownikAdresWrapper pracownikAdresWrapper =  new PracownikAdresWrapper(pracownik, pracownik.getAdres());
         model.addAttribute("pracownikAdresWrapper", pracownikAdresWrapper);
         return "pracownicy/Update";
     }
 
     @GetMapping("/addNew")
     public String showNewPracownikForm(Model model) {
-        PracownikAdresWrapper pracownikAdresWrapper =  new PracownikAdresWrapper(new Pracownik(), new Adres()); // Fetch the object from the database
+        PracownikAdresWrapper pracownikAdresWrapper =  new PracownikAdresWrapper(new Pracownik(), new Adres());
         model.addAttribute("pracownikAdresWrapper", pracownikAdresWrapper);
         model.addAttribute("poczty", pocztaService.findAll());
         return "pracownicy/AddNew";
@@ -54,49 +54,28 @@ public class PracownicyController {
     @PostMapping("/add")
     public String savePracownik(@ModelAttribute("pracownikAdresWrapper") PracownikAdresWrapper pracownikAdresWrapper) {
         Adres adres = pracownikAdresWrapper.getAdres();
-        System.out.println("adress from wrapper: " + adres.getNrAdresu());
-        System.out.println("miejscowosc from wrapper: " + adres.getMiejscowosc());
-        System.out.println("ulica from wrapper: " + adres.getUlica());
-        System.out.println("nrDomu from wrapper: " + adres.getNrDomu());
-        System.out.println("nrLokalu from wrapper: " + adres.getNrLokalu());
-        System.out.println("poczta from wrapper: " + adres.getPoczta().getNrPoczty());
         Pracownik pracownik = pracownikAdresWrapper.getPracownik();
 
         if (adres != null) {
             if (adres.getNrAdresu() != null) {
-                // Ensure that the Adres is properly attached to the Hibernate session
                 Adres existingAdres = adressService.findById(adres.getNrAdresu());
                 for (int i = 0; i < 10; i++) System.out.println("ADRESS");
-                System.out.println("Existing Adres: " + existingAdres.getNrAdresu());
-                System.out.println("Existing Miejscowosc: " + existingAdres.getMiejscowosc());
-                System.out.println("Existing Ulica: " + existingAdres.getUlica());
-                System.out.println("Existing NrDomu: " + existingAdres.getNrDomu());
-                System.out.println("Existing NrLokalu: " + existingAdres.getNrLokalu());
-                System.out.println("Existing Poczta: " + existingAdres.getPoczta().getNrPoczty());
 
                 if (existingAdres != null) {
-                    System.out.println("weszlo tu 1");
-
-                    // Update fields of the existing Adres if necessary
                     existingAdres.setMiejscowosc(adres.getMiejscowosc());
                     existingAdres.setUlica(adres.getUlica());
                     existingAdres.setNrDomu(adres.getNrDomu());
                     existingAdres.setNrLokalu(adres.getNrLokalu());
                     existingAdres.setPoczta(adres.getPoczta());
 
-                    // Link the existing Adres to the Pracownik
                     adressService.save(existingAdres);
                     pracownik.setAdres(existingAdres);
                 } else {
-                    System.out.println("weszlo tu 2");
-                    // If the Adres doesn't exist, create a new one
                     adres.setNrAdresu(adressService.getNextId());
                     adressService.save(adres);
                     pracownik.setAdres(adres);
                 }
             } else {
-                System.out.println("weszlo tu 3");
-                // If No Adres ID is available, create a new one
                 adres.setNrAdresu(adressService.getNextId());
                 adressService.save(adres);
                 pracownik.setNrPracownika(pracownicyService.getNextId());
@@ -112,10 +91,10 @@ public class PracownicyController {
 
     @GetMapping("/remove/{id}")
     public String removePracownik(@PathVariable Long id) {
-        final Pracownik pracownik = pracownicyService.findById(id); // Fetch the object from the database
+        final Pracownik pracownik = pracownicyService.findById(id);
         final Long adresId = pracownik.getAdres().getNrAdresu();
-        pracownicyService.remove(id); // Remove the object from the database
-        adressService.remove(adresId); // Remove the related Adres from the database
-        return "redirect:/admin"; // Redirect to the list view after removing
+        pracownicyService.remove(id);
+        adressService.remove(adresId);
+        return "redirect:/admin";
     }
 }

@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #efe2f8;
+}
+.error{
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    padding: 15rem;
+    padding-left: 35rem;
+    padding-right: 35rem;
+    gap: 3vh;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    background-color: #8861dc;
+}
+.label{
+    border-radius: 5px;
+    border: none;
+    font-size: 50px;
+    margin-left: -30rem;
+    margin-top: -8rem;
+    color: #750606;
+}
+
+.errorMessage {
+    border-radius: 5px;
+    border: none;
+    font-size: 35px;
+    margin-left: -28rem;
+    margin-top: -4rem;
+}
