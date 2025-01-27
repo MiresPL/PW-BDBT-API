@@ -25,7 +25,7 @@ public class BiletyKlienciService {
         return biletyKlienciRepository.findById(id).orElse(null);
     }
 
-    public BiletyKlienci findByNrKlientaAndNrBiletu(Long nrKlienta, Long nrBiletu) {
+    public List<BiletyKlienci> findByNrKlientaAndNrBiletu(Long nrKlienta, Long nrBiletu) {
         return biletyKlienciRepository.findByNrKlientaAndNrBiletu(nrKlienta, nrBiletu);
     }
 

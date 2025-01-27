@@ -1,21 +1,25 @@
 package com.mires.bdbt.parkrozrywki.controllers;
 
-import com.mires.bdbt.parkrozrywki.entities.BiletyKlienci;
-import com.mires.bdbt.parkrozrywki.entities.Klient;
-import com.mires.bdbt.parkrozrywki.entities.KlientBilet;
-import com.mires.bdbt.parkrozrywki.entities.LoginCredentials;
+import com.mires.bdbt.parkrozrywki.entities.*;
 import com.mires.bdbt.parkrozrywki.services.BiletyKlienciService;
 import com.mires.bdbt.parkrozrywki.services.BiletyService;
 import com.mires.bdbt.parkrozrywki.services.KlientService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.filters.ExpiresFilter;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.HttpServerErrorException;
 
+import java.nio.charset.Charset;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -40,14 +44,14 @@ public class KlientController {
         if (klient != null) {
             session.setAttribute("klient", klient);
             return "redirect:/";
-        } else return "redirect:/klient/login";
+        } else return "redirect:/klient/login?error";
 
 
     }
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error, final Model model, HttpServletRequest request) {
-        //throw new RuntimeException("Login page not implemented");
+        //throw HttpServerErrorException.create(HttpStatus.INTERNAL_SERVER_ERROR, "Niepoprawne dane logowania", HttpHeaders.EMPTY, "Niepoprawne dane logowania".getBytes(Charset.defaultCharset()), Charset.defaultCharset());
         model.addAttribute("loginCredentials", new LoginCredentials());
         model.addAttribute("request", request);
         if (error != null) {
@@ -66,10 +70,17 @@ public class KlientController {
     @GetMapping("/profil")
     public String profil(final Model model, HttpSession session, HttpServletRequest request) {
         final Klient klient = (Klient) session.getAttribute("klient");
+        final List<KlientBilet> tickets = new ArrayList<>();
+
+        for (Bilet bilet : biletyService.getTicketsByKlient(klient.getNrKlienta())) {
+            final List<BiletyKlienci> list = biletyKlienciService.findByNrKlientaAndNrBiletu(klient.getNrKlienta(), bilet.getNrBiletu());
+            for (BiletyKlienci biletyKlienci : list) {
+                tickets.add(new KlientBilet(bilet, biletyKlienci));
+            }
+        }
+
         model.addAttribute("klient", klient);
-        model.addAttribute("tickets", biletyService.getTicketsByKlient(klient.getNrKlienta()).stream().map(ticket ->
-                new KlientBilet(ticket, biletyKlienciService.findByNrKlientaAndNrBiletu(klient.getNrKlienta(), ticket.getNrBiletu()))
-        ).collect(Collectors.toList()));
+        model.addAttribute("tickets", tickets);
         model.addAttribute("request", request);
         return "profile/Profile";
     }
@@ -87,6 +98,6 @@ public class KlientController {
         biletyKlienci.setNrKlienta(klient.getNrKlienta());
         biletyKlienci.setDataZakupu(new Date(System.currentTimeMillis()));
         biletyKlienciService.save(biletyKlienci);
-        return "redirect:/bilety";
+        return "redirect:/klient/profil";
     }
 }

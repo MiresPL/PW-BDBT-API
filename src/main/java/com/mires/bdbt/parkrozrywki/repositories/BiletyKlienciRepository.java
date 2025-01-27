@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface BiletyKlienciRepository extends JpaRepository<BiletyKlienci, Long> {
     @Query("SELECT b FROM BiletyKlienci b WHERE b.nrKlienta = ?1 AND b.nrBiletu = ?2")
-    BiletyKlienci findByNrKlientaAndNrBiletu(Long nrKlienta, Long nrBiletu);
+    List<BiletyKlienci> findByNrKlientaAndNrBiletu(Long nrKlienta, Long nrBiletu);
 }
